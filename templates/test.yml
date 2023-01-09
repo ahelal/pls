@@ -1,0 +1,2 @@
+
+{{ state.providerDeploy.stdout | from_json('properties.outputs.subnetId.value.0.id') }}
