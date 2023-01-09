@@ -33,16 +33,16 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-08-01' = {
         name: subnet1Name
         properties: {
           addressPrefix: subnet1Prefix
-          privateEndpointNetworkPolicies: 'Enabled'
-          privateLinkServiceNetworkPolicies:'Enabled'
+          privateEndpointNetworkPolicies: 'Disabled'
+          privateLinkServiceNetworkPolicies: 'Disabled'
         }
       }
       {
         name: subnet2Name
         properties: {
           addressPrefix: subnet2Prefix
-          privateEndpointNetworkPolicies: 'Enabled'
-          privateLinkServiceNetworkPolicies:'Enabled'
+          privateEndpointNetworkPolicies: 'Disabled'
+          privateLinkServiceNetworkPolicies: 'Disabled'
         }
       }
     ]
