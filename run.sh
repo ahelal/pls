@@ -15,10 +15,10 @@ run_tsetup(){
 
 if [ "${1}" == "all" ]; then
     run_tsetup customer
-        sleep 30
+    sleep 120
     run_tsetup customerPls
     run_tsetup provider
-    sleep 30
+    sleep 120
     run_tsetup providerPls
     run_tsetup customer2
 else
