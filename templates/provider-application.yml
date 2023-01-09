@@ -35,9 +35,42 @@ spec:
     metadata:
       labels:
         app: nginx
+        network: filter
     spec:
       containers:
       - name: proxy
         image: nginx
         ports:
         - containerPort: 80
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: NetworkPolicy
+# metadata:
+#   name: default-deny-egress
+# spec:
+#   podSelector: {}
+#   policyTypes:
+#   - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: test-network-policy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      network: filter
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - ipBlock:
+            cidr: 10.2.128.100/32
+            # except:
+            # - 10.0.0.0/8
+      # ports:
+        # - protocol: TCP
+        #   port: 3128
+
+

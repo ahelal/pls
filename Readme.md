@@ -42,8 +42,8 @@ Get customer context
 Get provider context
 `az aks get-credentials --resource-group  provider --name providerAKS --overwrite-existing`
 
-Run a curl image
-`kubectl run -i --tty --rm debug --image=curlimages/curl --restart=Never -- /bin/sh`
+Run a curl image `kubectl run curl --image=curlimages/curl -i --tty  --restart=Never --rm -- /bin/sh` 
+Run a curl image with network filter `kubectl run curl --image=curlimages/curl -i --tty  -l network=filter --restart=Never --rm -- /bin/sh`
 
 Test curl from product context
 `http_proxy=10.2.128.100:3128 curl --silent ifconfig.me`
