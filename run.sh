@@ -21,7 +21,9 @@ if [ "${1}" == "all" ]; then
     sleep 120
     run_tsetup providerPls
     run_tsetup customer2
+elif [ ${#} -gt 0 ]; then
+    run_tsetup "${1}"
 else
-    echo "unkown command '${1}'"
+    echo "empty argument"
     exit 1
 fi

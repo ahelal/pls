@@ -35,19 +35,24 @@ Hosts a webproxy and exposes it as Service (PLS).
 * subnet2Prefix: '10.1.129.0/24'
 * myNic: '10.1.128.100'
 
-## Test commands
+## Test customer
 
-Get customer context
-`az aks get-credentials --resource-group  customer --name customerAKS --overwrite-existing`
+From the customer view you should be able to reach the Application Service (nginx), to simulate this we will run a container and hit the Private Endpoint NIC address
 
-Get provider context
-`az aks get-credentials --resource-group  provider --name providerAKS --overwrite-existing`
+Get customer context `az aks get-credentials --resource-group  customer --name customerAKS --overwrite-existing`
 
 Run a curl image `kubectl run curl --image=curlimages/curl -i --tty  --restart=Never --rm -- /bin/sh` 
+
+Test curl from customer context `curl 10.1.128.100`
+
+
+## Test Provider
+
+Get provider context `az aks get-credentials --resource-group  provider --name providerAKS --overwrite-existing`
+
 Run a curl image with network filter `kubectl run curl --image=curlimages/curl -i --tty  -l network=filter --restart=Never --rm -- /bin/sh`
 
-Test curl from product context
-`http_proxy=10.2.128.100:3128 curl --silent ifconfig.me`
- 
-Test curl from customer context
-`curl 10.1.128.100`
+Test curl from product context with proxy `http_proxy=10.2.128.100:3128 curl --silent ifconfig.me` you should get the Public IP of LB in the customer AKS subscription
+
+Test curl from product context without the proxy setting `curl --silent ifconfig.me` it should time out since we have network policy that blocks that.
+
