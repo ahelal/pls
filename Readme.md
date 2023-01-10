@@ -17,6 +17,9 @@
 
 ## Overview
 
+
+![Alt text](/docs/pls.png "Deployment")
+
 ### Provider
 
 Hosts a Nginx Application and exposes the application as a Service (PLS).
