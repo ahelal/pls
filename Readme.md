@@ -3,13 +3,14 @@
 ## Requirements  
 
 * You should run this scripts in Linux, MacOs or WSL
-* Python3, PIP3
+* Python3, PIP3, python-venv
 * Kubectl
+* az cli
 
 ## Setup
 
 * git clone the repo
-* Run `:/setup.sh` 
+* Run `./setup.sh` 
 * copy `config_template.yml` to `config.yml` `cp config_template.yml config.yml`
 * Change the *tenant* and  *subscription* in both the *customer* and *provider*
 * Run `./run.sh all` during the deployment an Azure login pop up will appear twice. first is for the *customer* workload and second is for provider *provider*.
@@ -47,6 +48,8 @@ Test curl from customer context `curl 10.1.128.100`
 
 
 ## Test Provider
+
+From the provider view any pod that has a label of `network filter` it's egress will be restricted with security group
 
 Get provider context `az aks get-credentials --resource-group  provider --name providerAKS --overwrite-existing`
 
