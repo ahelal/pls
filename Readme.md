@@ -56,3 +56,10 @@ Test curl from product context with proxy `http_proxy=10.2.128.100:3128 curl --s
 
 Test curl from product context without the proxy setting `curl --silent ifconfig.me` it should time out since we have network policy that blocks that.
 
+
+## Debugging errors
+
+* If error occurs it could be an intermittent error just run the script again 
+* If you have a bicep error you can check the azure portal and then head to the desired resource group `customer` or `provider` and check the deployment section in the blade and you should see the errors
+* Other types of error are probably template error and naming.
+
