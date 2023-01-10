@@ -10,7 +10,8 @@
 
 * git clone the repo
 * Run `:/setup.sh` 
-* Check the `config.yml` You would need to change the *tenant* and  *subscription* in both the *customer* and *provider*
+* copy `config_template.yml` to `config.yml` `cp config_template.yml config.yml`
+* Change the *tenant* and  *subscription* in both the *customer* and *provider*
 * Run `./run.sh all` during the deployment an Azure login pop up will appear twice. first is for the *customer* workload and second is for provider *provider*.
 
 ## Overview

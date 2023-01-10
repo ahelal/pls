@@ -1,7 +1,7 @@
 ---
 customer:
-  tenant: 16b3c013-d300-468d-ac64-7eda0820b6d3
-  subscription: 8e313279-d733-4e6a-b7a0-b5764f25acf9
+  tenant: PUT_TENANT_ID
+  subscription: PUT_SUBSCRIPTION_ID
   rg: 'customer'
   aks_name: 'customerAKS'
   location: 'westeurope'
@@ -10,11 +10,10 @@ customer:
   subnet2Prefix: '10.1.129.0/24'
   app_endpoint: '10.1.128.100'
   ipPLS: '10.1.129.20'
-  
 
 provider:
-  tenant: 16b3c013-d300-468d-ac64-7eda0820b6d3
-  subscription: 8e313279-d733-4e6a-b7a0-b5764f25acf9
+  tenant: PUT_TENANT_ID
+  subscription: PUT_SUBSCRIPTION_ID
   rg: 'provider'
   aks_name: "providerAKS"
   location: 'westeurope'
@@ -23,7 +22,6 @@ provider:
   subnet2Prefix: '10.2.129.0/24'
   proxy_endpoint: '10.2.128.100'
   ipPLS: '10.2.129.20'
-
 
 templates:
 #++++++++++++++++++++++++++++++++++++++++ customer phase 1 ++++++++++++++++++++++++++++++++++++++++++++++
