@@ -12,8 +12,8 @@
 * git clone this repo
 * Run `./setup.sh` 
 * Copy *config_template.yml* to *config.yml* `cp config_template.yml config.yml`
-* Change the *tenant* and *subscription* in both the *customer* and *provider*
-* Run `./run.sh all` during the deployment an Azure login pop up will appear twice. first is for the *customer* workload and second is for provider *provider*.
+* Change the *tenant* and *subscription* in both the *customer* and *provider* in the *config.yml*
+* Run `./run.sh all` this will deploy the solution. During the deployment an Azure login pop up will appear twice. First is for the *customer* workload and second is for provider *provider*.
 
 ## Overview
 
@@ -48,7 +48,6 @@ Run a curl image `kubectl run curl --image=curlimages/curl -i --tty  --restart=N
 
 Test curl from customer context `curl 10.1.128.100`
 
-
 ## Test Provider
 
 From the provider view any pod that has a label of `network filter` it's egress will be restricted with security group
@@ -67,4 +66,3 @@ Test curl from product context without the proxy setting `curl --silent ifconfig
 * If error occurs it could be an intermittent error just run the script again 
 * If you have a bicep error you can check the azure portal and then head to the desired resource group `customer` or `provider` and check the deployment section in the blade and you should see the errors
 * Other types of error are probably template error and naming.
-
