@@ -25,15 +25,15 @@ provider:
 
 templates:
 #++++++++++++++++++++++++++++++++++++++++ customer phase 1 ++++++++++++++++++++++++++++++++++++++++++++++
-  - name: Login to customer tenant and subscription 
+  - name: Customer1 Login to tenant and subscription 
     cmd:  az login -t {{config.customer.tenant}} && az account set --subscription {{config.customer.subscription}}
     phase: ["infra_environments", "infrastructure", "bicep", "customer"]
 
-  - name: Create RG
+  - name: Customer1 Create RG
     cmd: az group create -n {{config.customer.rg}} -l {{config.customer.location}}
     phase: ["infra_environments", "infrastructure", "bicep", "customer"]
 
-  - name: Deploy bicep customer
+  - name: Customer1 Deploy bicep
     cmd: az deployment group create --resource-group {{config.customer.rg}} --template-file bicep/customer_stage1.bicep 
                                     -p clusterName="{{config.customer.aks_name}}" 
                                     -p location="{{config.customer.location}}" 
@@ -43,31 +43,31 @@ templates:
     phase: ["infra_environments", "infrastructure", "bicep", "customer"]
     save: customerDeploy
 
-  - name: customer k8s kubectl context
+  - name: Customer1 k8s kubectl context
     cmd: az aks get-credentials --resource-group  {{config.customer.rg}} --name {{config.customer.aks_name}} --overwrite-existing
     phase: ["infra_environments", "infrastructure", "k8s", "k8s_customer", "customer", "customer_context"]
 
-  - name: customer k8s deployment
+  - name: Customer1 k8s deployment
     template_filename: customer-proxy.yml
     output_filename: customer-proxy.yml
     cmd: kubectl apply -f _output/customer-proxy.yml
     phase: ["infra_environments", "infrastructure", "k8s", "k8s_customer", "customer"]
 
-  - name: Get Proxy PLS alias
+  - name: Customer1 Get Proxy PLS alias
     cmd: az network private-link-service list -g mc_{{config.customer.rg}}_{{config.customer.aks_name}}_{{config.customer.location}}
     save: customerPls
     phase: ["infra_environments", "infrastructure", "k8s", "k8s_customer", "customer", "customerPls"]
 
 #++++++++++++++++++++++++++++++++++++++++ Provider phase 1 ++++++++++++++++++++++++++++++++++++++++++++++
-  - name: Login to provider tenant and subscription 
+  - name: Provider1 Login to tenant and subscription 
     cmd:  az login -t {{config.provider.tenant}} && az account set --subscription {{config.provider.subscription}}
     phase: ["infra_environments", "infrastructure", "bicep", "provider"]
 
-  - name: Create RG
+  - name: Provider1 Create RG
     cmd: az group create -n {{config.provider.rg}} -l {{config.provider.location}}
     phase: ["infra_environments", "infrastructure", "bicep", "provider"]
 
-  - name: Deploy bicep provider
+  - name: Provider1 Deploy bicep
     cmd: az deployment group create --resource-group {{config.provider.rg}} --template-file bicep/provider_stage1.bicep 
                                     -p clusterName="{{config.provider.aks_name}}" 
                                     -p location="{{config.provider.location}}" 
@@ -80,27 +80,27 @@ templates:
     phase: ["infra_environments", "infrastructure", "bicep", "provider"]
     save: providerDeploy
 
-  - name: provider k8s kubectl context
+  - name: Provider1 k8s kubectl context
     cmd: az aks get-credentials --resource-group  {{config.provider.rg}} --name {{config.provider.aks_name}} --overwrite-existing
     phase: ["infra_environments", "infrastructure", "k8s", "provider", "provider_context"]
 
-  - name: provider k8s deployment
+  - name: Provider1 k8s deployment
     template_filename: provider-application.yml
     output_filename: provider-application.yml
     cmd: kubectl apply -f _output/provider-application.yml
     phase: ["infra_environments", "infrastructure", "k8s", "k8s_provider", "provider"]
 
-  - name: Get application PLS alias
+  - name: Provider1 Get application PLS alias
     cmd: az network private-link-service list -g mc_{{config.provider.rg}}_{{config.provider.aks_name}}_{{config.provider.location}}
     save: providerPls
     phase: ["infra_environments", "infrastructure", "k8s", "k8s_provider", "provider", "providerPls"]
 
 #++++++++++++++++++++++++++++++++++++++++ customer phase2  ++++++++++++++++++++++++++++++++++++++++++++++
-  - name: customer k8s kubectl context
+  - name: Customer2 k8s kubectl context
     cmd: az aks get-credentials --resource-group  {{config.customer.rg}} --name {{config.customer.aks_name}} --overwrite-existing
     phase: ["infra_environments", "infrastructure", "k8s", "k8s_customer", "customer2", "customer_context"]
 
-  - name: Deploy bicep customer
+  - name: Customer2 Deploy bicep
     cmd: az deployment group create --resource-group {{config.customer.rg}} --template-file bicep/customer_stage2.bicep 
                                     -p location="{{config.customer.location}}" 
                                     -p privateLinkResource="{{ state.providerPls.stdout | from_json('0.alias') }}"
