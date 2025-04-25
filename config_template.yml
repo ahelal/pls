@@ -11,6 +11,7 @@ customer:
   app_endpoint: '10.1.128.100'
   ipPLS: '10.1.129.20'
 
+
 provider:
   tenant: PUT_TENANT_ID
   subscription: PUT_SUBSCRIPTION_ID

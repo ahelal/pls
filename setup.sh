@@ -16,6 +16,7 @@ checkInstalled(){
     errorMsg "${1}"
 }
 
+
 checkInstalled python3
 checkInstalled pip3
 checkInstalled kubectl
