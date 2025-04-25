@@ -12,6 +12,7 @@ metadata:
     service.beta.kubernetes.io/azure-pls-visibility: "*"
     service.beta.kubernetes.io/azure-pls-auto-approval: "{{ config.customer.subscription }}"
 spec:
+
   selector:
     app: proxy
   type: LoadBalancer

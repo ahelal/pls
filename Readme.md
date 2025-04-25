@@ -1,4 +1,4 @@
-# AKS PLS 
+# AKS Private Link Proxy
 
 ## Requirements  
 
